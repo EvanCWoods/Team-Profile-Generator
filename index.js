@@ -7,7 +7,7 @@ const Engineer = require('./src/engineer');
 const team = [];
 
 // Starting code for creating the team manager
-const manager = inquirer.prompt([
+inquirer.prompt([
     {
         type: "input",
         name: "managerName",
@@ -30,8 +30,8 @@ const manager = inquirer.prompt([
     }
 ]).then( (data) => {
     const {managerName, managerId, managerEmail, managerOffice} = data;
-    const newManager = new Manager(managerName, managerId, managerEmail, managerOffice);
-    team.push(newManager);
+    const employee = new Manager(managerName, managerId, managerEmail, managerOffice);
+    team.push(employee);
     newEmployee();
 })
 
@@ -73,8 +73,8 @@ const newEmployee = () => {
                 },
             ]).then( (data) => {
                 const {engineerName, engineerId, engineerEmail, engineerGithub} = data;
-                const newEngineer = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
-                team.push(newEngineer);
+                const employee = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
+                team.push(employee);
                 newEmployee();
             })
         } else if (data.addEmployee == "Add an Intern") {
@@ -101,13 +101,70 @@ const newEmployee = () => {
                 },
             ]).then( (data) => {
                 const {internName, internId, internEmail, internSchool} = data;
-                const newIntern = new Intern(internName, internId, internEmail, internSchool);
-                team.push(newIntern);
+                const employee = new Intern(internName, internId, internEmail, internSchool);
+                team.push(employee);
                 newEmployee();
             })
         } else {
             console.log("Ending process...")
+            console.log(team);
             return;
         }
     });
+}
+
+
+const writeToFile = (data) => {
+    FileSystem.writeFile('./dist/index.html', (data, err) => {
+        err ? console.log(err) : console.log("Team Profile Created");
+    })
+}
+
+
+const generateManager = () => {
+    return `
+<div class="card-container">
+    <div class="card-top">
+        <h1>${Manager.name}</h1>
+        <p>Manager</p>
+    </div>
+    <div class="card-bottom">
+        <div><p>ID: ${Manager.id}</p></div>
+        <div><span>Email</span> <span><a href=""></a></span></div>
+        <div><p>Office Number ${Manager.office}</p></div>
+    </div>
+</div>
+`
+}
+
+const generateEngineer = () => {
+    reutrn `
+    <div class="card-container">
+    <div class="card-top">
+        <h1>${Engineer.name}</h1>
+        <p>Engineer</p>
+    </div>
+    <div class="card-bottom">
+        <div><p>ID: ${Engineer.id}</p></div>
+        <div><span>Email</span> <span><a href=""></a></span></div>
+        <div><p>GitHub ${Engineer.github}</p></div>
+    </div>
+</div>    
+`
+}
+
+const generateIntern = () => {
+    return `
+<div class="card-container">
+    <div class="card-top">
+        <h1>${Intern.name}</h1>
+        <p>Intern</p>
+    </div>
+    <div class="card-bottom">
+        <div><p>ID: ${Intern.id}</p></div>
+        <div><span>Email</span> <span><a href=""></a></span></div>
+        <div><p>School: ${Intern.school}</p></div>
+    </div>
+</div>    
+`
 }
