@@ -6,7 +6,7 @@ const fs = require("fs");
 const assignEmployees = require("./lib/generateHtml");
 
 // Create an array to hold all employee objects
-let teamArray = [];
+let team = [];
 
 // Starting code for creating the team manager
 const addManager = () => {
@@ -34,7 +34,7 @@ const addManager = () => {
     ]).then( (data) => {
         const { managerName, managerId, managerEmail, managerOffice } = data;
         const employee = new Manager(managerName, managerId, managerEmail, managerOffice);
-        teamArray.push(employee);
+        team.push(employee);
         newEmployee();
     })
 };
@@ -77,7 +77,7 @@ const newEmployee = () => {
             ]).then( (data) => {
                 const {engineerName, engineerId, engineerEmail, engineerGithub} = data;
                 const employee = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
-                teamArray.push(employee);
+                team.push(employee);
                 newEmployee();
             })
         } else if (data.addEmployee == "Add an Intern") {
@@ -105,13 +105,13 @@ const newEmployee = () => {
             ]).then( (data) => {
                 const {internName, internId, internEmail, internSchool} = data;
                 const employee = new Intern(internName, internId, internEmail, internSchool);
-                teamArray.push(employee);
+                team.push(employee);
                 newEmployee();
             })
         } else {
             console.log("Ending process...");
-            console.log(teamArray);
-            const page = assignEmployees(teamArray);
+            console.log(team);
+            const page = assignEmployees(team);
             console.log(page);
             writeToFile(page);
         }
