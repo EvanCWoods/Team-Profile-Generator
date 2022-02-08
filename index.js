@@ -2,39 +2,42 @@ const inquirer = require("inquirer");
 const Manager = require("./src/manager");
 const Intern = require("./src/intern");
 const Engineer = require('./src/engineer');
+const fs = require("fs");
+const assignEmployees = require("./lib/generateHtml");
 
 // Create an array to hold all employee objects
-const team = [];
+let teamArray = [];
 
 // Starting code for creating the team manager
-inquirer.prompt([
-    {
-        type: "input",
-        name: "managerName",
-        message: "Team Manager Name:"
-    },
-    {
-        type: "input",
-        name: "managerId",
-        message: "Team Manager ID:"
-    },
-    {
-        type: "input",
-        name: "managerEmail",
-        message: "Team Manager Email:"
-    },
-    {
-        type: "input",
-        name: "managerOffice",
-        message: "Team Manager Office Number:"
-    }
-]).then( (data) => {
-    const {managerName, managerId, managerEmail, managerOffice} = data;
-    const employee = new Manager(managerName, managerId, managerEmail, managerOffice);
-    team.push(employee);
-    newEmployee();
-})
-
+const addManager = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "managerName",
+            message: "Team Manager Name:"
+        },
+        {
+            type: "input",
+            name: "managerId",
+            message: "Team Manager ID:"
+        },
+        {
+            type: "input",
+            name: "managerEmail",
+            message: "Team Manager Email:"
+        },
+        {
+            type: "input",
+            name: "managerOffice",
+            message: "Team Manager Office Number:"
+        }
+    ]).then( (data) => {
+        const { managerName, managerId, managerEmail, managerOffice } = data;
+        const employee = new Manager(managerName, managerId, managerEmail, managerOffice);
+        teamArray.push(employee);
+        newEmployee();
+    })
+};
 
 // Code for selecting what type of employee to create next (if any)
 const newEmployee = () => {
@@ -74,7 +77,7 @@ const newEmployee = () => {
             ]).then( (data) => {
                 const {engineerName, engineerId, engineerEmail, engineerGithub} = data;
                 const employee = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
-                team.push(employee);
+                teamArray.push(employee);
                 newEmployee();
             })
         } else if (data.addEmployee == "Add an Intern") {
@@ -102,69 +105,28 @@ const newEmployee = () => {
             ]).then( (data) => {
                 const {internName, internId, internEmail, internSchool} = data;
                 const employee = new Intern(internName, internId, internEmail, internSchool);
-                team.push(employee);
+                teamArray.push(employee);
                 newEmployee();
             })
         } else {
-            console.log("Ending process...")
-            console.log(team);
-            return;
+            console.log("Ending process...");
+            console.log(teamArray);
+            const page = assignEmployees(teamArray);
+            console.log(page);
+            writeToFile(page);
         }
     });
 }
 
 
-const writeToFile = (data) => {
-    FileSystem.writeFile('./dist/index.html', (data, err) => {
-        err ? console.log(err) : console.log("Team Profile Created");
+function writeToFile(data) {
+    fs.writeFile('./dist/index.html', data, (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Creating team page");
+        }
     })
 }
 
-
-const generateManager = () => {
-    return `
-<div class="card-container">
-    <div class="card-top">
-        <h1>${Manager.name}</h1>
-        <p>Manager</p>
-    </div>
-    <div class="card-bottom">
-        <div><p>ID: ${Manager.id}</p></div>
-        <div><span>Email</span> <span><a href=""></a></span></div>
-        <div><p>Office Number ${Manager.office}</p></div>
-    </div>
-</div>
-`
-}
-
-const generateEngineer = () => {
-    reutrn `
-    <div class="card-container">
-    <div class="card-top">
-        <h1>${Engineer.name}</h1>
-        <p>Engineer</p>
-    </div>
-    <div class="card-bottom">
-        <div><p>ID: ${Engineer.id}</p></div>
-        <div><span>Email</span> <span><a href=""></a></span></div>
-        <div><p>GitHub ${Engineer.github}</p></div>
-    </div>
-</div>    
-`
-}
-
-const generateIntern = () => {
-    return `
-<div class="card-container">
-    <div class="card-top">
-        <h1>${Intern.name}</h1>
-        <p>Intern</p>
-    </div>
-    <div class="card-bottom">
-        <div><p>ID: ${Intern.id}</p></div>
-        <div><span>Email</span> <span><a href=""></a></span></div>
-        <div><p>School: ${Intern.school}</p></div>
-    </div>
-</div>    
-`
-}
+addManager();
