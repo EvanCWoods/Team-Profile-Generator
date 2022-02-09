@@ -12,29 +12,42 @@ h1 {
 p {
     margin: 0;
 }
+a {
+    text-decoration: none;
+    color: rgb(48, 104, 245);
+}
 .card-container {
     min-width: 210px;
+    margin: 20px;
+    max-width: 300px;
+    border-radius: 5%;
 }
 .card-top {
-    background: rgb(121, 121, 216);
-    padding-bottom: 10px;
+    background: rgb(48, 104, 245);
+    padding-bottom: 20px;
+    padding-top: 20px;
     padding-left: 20px;
+    color: white;
 }
 .card-top p {
     padding-top: 5px;
 }
 .card-bottom {
     background: rgb(232, 232, 232);
-    padding: 30px 0 30px 0;
+    padding: 50px 0 50px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 .card-bottom div {
     background: white;
-    margin-top: 10px;
+    margin-top: 1px;
     width: 80%;
     height: 30px;
     display: flex;
     align-items: center;
+    max-width: 250px;
+    padding-left: 5px;
+    color: rgb(52, 52, 52);
+    height: 2.5rem;
 }
