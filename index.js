@@ -110,9 +110,7 @@ const newEmployee = () => {
             })
         } else {
             console.log("Ending process...");
-            console.log(team);
             const page = assignEmployees(team);
-            console.log(page);
             writeToFile(page);
         }
     });
