@@ -28,7 +28,7 @@ Once complete, the user is prompted to whether they would like to add another te
 There is currently no way to add more team members to the same organisation in the app without overwriting the current ones. This is a consideration for future development.
 
 A video demonstration is available at: 
-https://watch.screencastify.com/v/xFE5bUaY1e3C3yobujgI 
+https://watch.screencastify.com/v/9g0DsFupwyJPviNwVNoV
 
 
 ## Installation
