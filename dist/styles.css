@@ -1,9 +1,6 @@
 body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 h1 {
     margin: 0;
@@ -15,6 +12,20 @@ p {
 a {
     text-decoration: none;
     color: rgb(48, 104, 245);
+}
+header {
+    text-align: center;
+    padding: 2% 0 2% 0;
+    font-size: 2rem;
+    background: rgb(182, 60, 60);
+    color: white;
+}
+#team-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
 }
 .card-container {
     min-width: 210px;

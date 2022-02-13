@@ -19,7 +19,13 @@ https://opensource.org/licenses/MIT
 
 
 ## Description
-This project allows users to create a webpage form the command line that displays team members, with different roles in the company. The application runs in the command line and initially prompts a user to allocate a team manager. Once complete, the user is prompted to whether they would like to add another team member and can select either an intern or an engineer. This then prompts the user to provide information about the user, before runnig the same process until a user selects not adding a new team member. Once complete, the program creates objecs for each team member and generates an HTML team member card for them. This is then rendered to the page and styled using a set of css in the same directory.
+This project allows users to create a webpage form the command line that displays team members, with different roles in the company. The application runs in the command line and initially prompts a user to allocate a team manager. 
+![input](./Assets/inputs.png)
+
+Once complete, the user is prompted to whether they would like to add another team member and can select either an intern or an engineer. This then prompts the user to provide information about the user, before runnig the same process until a user selects not adding a new team member. Once complete, the program creates objecs for each team member and generates an HTML team member card for them. This is then rendered to the page and styled using a set of css in the same directory.
+![output](./Assets/outputs.png)
+
+There is currently no way to add more team members to the same organisation in the app without overwriting the current ones. This is a consideration for future development.
 
 
 ## Installation
